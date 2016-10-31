@@ -1,0 +1,7 @@
+/provision/galaxy_roles
+/provision/vars
+/nginx-vhosts.yml
+/vars.yml
+/.vagrant
+/provision/playbook.retry
+/vagrant.yml

@@ -1,0 +1,36 @@
+---
+- hosts: all
+  user: vagrant
+  sudo: true
+  vars_files:
+    - vars/default.yml
+
+  pre_tasks:
+    - name: Add repository for PHP 5.6 or 7.0.
+      apt_repository: repo='ppa:ondrej/php'
+
+    - name: Assert if custom variables file is defined
+      local_action: stat path=../vars.yml
+      register: vlemp_custom_variables
+      become: no
+    - name: Assert if custom vhosts file is defined
+      local_action: stat path=../nginx-vhosts.yml
+      register: vlemp_virtual_hosts
+      become: no
+    - name: Include custom variables file if defined
+      include_vars: ../vars.yml
+      when: vlemp_custom_variables.stat.exists
+    - name: Include custom vohsts file if defined
+      include_vars: ../nginx-vhosts.yml
+      when: vlemp_virtual_hosts.stat.exists
+
+  roles:
+    - { role: geerlingguy.git }
+    - { role: geerlingguy.php }
+    - { role: geerlingguy.composer }
+    - { role: geerlingguy.mysql }
+    - { role: jdauphant.nginx }    
+    - { role: geerlingguy.nodejs }    
+    - { role: geerlingguy.redis }
+    - { role: geerlingguy.php-redis }
+    - { role: geerlingguy.php-xdebug }

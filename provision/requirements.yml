@@ -1,0 +1,10 @@
+---
+- src: geerlingguy.git
+- src: geerlingguy.composer
+- src: geerlingguy.php
+- src: geerlingguy.mysql
+- src: jdauphant.nginx
+- src: geerlingguy.nodejs
+- src: geerlingguy.redis
+- src: geerlingguy.php-redis
+- src: geerlingguy.php-xdebug

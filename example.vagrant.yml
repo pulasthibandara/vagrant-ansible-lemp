@@ -1,0 +1,8 @@
+---
+ports:
+  - from: 6001  # vm port
+    to: 80      # host port
+
+folders:
+  - from: /path/to/host/folder
+    to: /past/to/map/in/vm
