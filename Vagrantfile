@@ -3,8 +3,33 @@
 
 require 'yaml'
 
+# Cross-platform way of finding an executable in the $PATH.
+#
+#   which('ruby') #=> /usr/bin/ruby
+def which(cmd)
+  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+  ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+    exts.each { |ext|
+      exe = File.join(path, "#{cmd}#{ext}")
+      return exe if File.executable?(exe) && !File.directory?(exe)
+    }
+  end
+  return nil
+end
+
+
+# load user defined config
 current_dir    = File.dirname(File.expand_path(__FILE__))
-vagrant_vars        = YAML.load_file("#{current_dir}/vagrant.yml")
+vagrant_vars        = YAML.load_file("#{current_dir}/vagrant.yml") 
+
+# dertermin is ansible is installed on host machine
+# if not set provisioner as ansible_local
+ansible_installed = which( 'ansible' );
+provisioner = if ansible_installed then 'ansible' else 'ansible_local' end
+# send notice to install ansible
+unless ansible_installed
+  puts "NOTICE!  Install 'ansible' locally for better provisioning performance"
+end
 
 Vagrant.configure("2") do |config|
 
@@ -33,7 +58,7 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder folder['from'], folder['to'] 
   end
 
-  config.vm.provision "ansible" do |ansible|
+  config.vm.provision provisioner do |ansible|
     ansible.playbook = "provision/playbook.yml"
     ansible.galaxy_role_file = "provision/requirements.yml"
     ansible.galaxy_roles_path = "provision/galaxy_roles"
