@@ -34,7 +34,7 @@ end
 Vagrant.configure("2") do |config|
 
   host = "vagrant-lemp" 
-  config.vm.box = "ubuntu/trusty32"
+  config.vm.box = vagrant_vars['box']
 
   config.vm.hostname =  host
   config.vm.provider "virtualbox" do |v|

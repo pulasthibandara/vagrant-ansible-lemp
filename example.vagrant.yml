@@ -1,4 +1,6 @@
 ---
+box: ubuntu/trusty64
+
 ports:
   - from: 6001  # vm port
     to: 80      # host port
