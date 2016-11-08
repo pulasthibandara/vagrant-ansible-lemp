@@ -19,8 +19,8 @@ end
 
 
 # load user defined config
-current_dir    = File.dirname(File.expand_path(__FILE__))
-vagrant_vars        = YAML.load_file("#{current_dir}/vagrant.yml") 
+current_dir = File.dirname(File.expand_path(__FILE__))
+vagrant_vars = YAML.load_file("#{current_dir}/vagrant.yml")
 
 # dertermin is ansible is installed on host machine
 # if not set provisioner as ansible_local
