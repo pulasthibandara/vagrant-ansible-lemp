@@ -1,5 +1,6 @@
 ---
 box: ubuntu/trusty64
+provider: virtualbox
 
 ports:
   - from: 6001  # vm port
