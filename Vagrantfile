@@ -67,6 +67,7 @@ Vagrant.configure("2") do |config|
     ansible.galaxy_role_file = "provision/requirements.yml"
     ansible.galaxy_roles_path = "provision/galaxy_roles"
     ansible.galaxy_command = "ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}"
+    ansible.verbose = vagrant_vars['ansible'] && vagrant_vars['ansible']['verbosity'] || false 
   end
 
 end
