@@ -1,5 +1,5 @@
 ---
-box: ubuntu/trusty64
+box: ubuntu/xenial64
 provider: virtualbox
 
 ports:
